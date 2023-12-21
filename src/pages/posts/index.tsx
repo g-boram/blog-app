@@ -1,5 +1,7 @@
-export default function PostList(){
+import PostList from "../../components/PostList";
+
+export default function PostsPage(){
   return(
-    <h1>PostList Page</h1>
+    <PostList hasNavigation={false}/>
   )
 }
