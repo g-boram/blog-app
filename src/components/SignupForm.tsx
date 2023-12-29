@@ -11,6 +11,8 @@ export default function SignupForm() {
   const [password, setPassword] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
 
+
+  // 버튼 클릭시 firebase로 통신
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {

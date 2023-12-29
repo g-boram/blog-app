@@ -54,6 +54,7 @@ footer {
   align-items: center;
   justify-content: center;
   gap: 20px;
+  bottom: 0;
 }
 
 footer a {
