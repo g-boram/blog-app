@@ -54,6 +54,7 @@ footer {
   align-items: center;
   justify-content: center;
   gap: 20px;
+  bottom: 0;
 }
 
 footer a {
@@ -208,7 +209,7 @@ footer a:hover {
 .post__category {
   color: gray;
   border: 1px solid lightgray;
-  backgroud: #f2f2f2;
+  background: #f2f2f2;
   padding: 0px 4px;
   border-radius: 10px;
   font-size: 12px;
@@ -425,6 +426,7 @@ input:checked + .carousel__slide-container .nav label {
 .form .form__block {
   margin-top: 20px;
   width: 100%;
+  min-height: 25px;
 }
 
 .form label {

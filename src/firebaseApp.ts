@@ -20,6 +20,6 @@ try {
 }
 
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
+const firebase = initializeApp(firebaseConfig);
 
-export default firebaseApp;
+export default firebase;
