@@ -1,5 +1,10 @@
+#root {
+  height: 100%;
+}
+
 body {
   margin: 0;
+  height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -43,6 +48,7 @@ header a:hover {
 
 /* footer */
 footer {
+  position: absolute;
   background-color: #f2f2f2;
   min-height: 40px;
   padding: 20px 40px;
