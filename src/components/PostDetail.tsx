@@ -44,7 +44,7 @@ export default function PostDetail() {
               onClick={handleDelete}
             >삭제</div>
             <div className='post__edit'>
-              <Link to={`/posts/edit/1`}>수정</Link>
+              <Link to={`/posts/edit/${post?.id}`}>수정</Link>
             </div>
           </div>
           <div className='post__text post__text--pre-wrap'>
