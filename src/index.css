@@ -48,7 +48,6 @@ header a:hover {
 
 /* footer */
 footer {
-  position: absolute;
   background-color: #f2f2f2;
   min-height: 40px;
   padding: 20px 40px;
@@ -406,6 +405,7 @@ input:checked + .carousel__slide-container .nav label {
   max-width: 680px;
   padding: 20px;
   margin-top: 20px;
+  height: 100vh;
 }
 
 .form input {
