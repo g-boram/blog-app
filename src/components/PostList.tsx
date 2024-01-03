@@ -15,10 +15,9 @@ import { toast } from "react-toastify";
 
 interface PostListProps {
   hasNavigation?: boolean;
-  defaultTab?: TabType;
+  defaultTab?: TabType | CategoryType;
 }
 
-type TabType = "all" | "my";
 
 export interface PostProps {
   id?: string;
@@ -29,15 +28,31 @@ export interface PostProps {
   createdAt: string;
   updatedAt?: string;
   uid: string;
+  category?: CategoryType;
 }
+
+
+
+type TabType = "all" | "my";
+
+export type CategoryType = "Frontend" | "Backend" | "Web" | "Native";
+export const CATEGORIES: CategoryType[] = [
+  "Frontend",
+  "Backend",
+  "Web",
+  "Native"
+]
 
 export default function PostList({ 
   hasNavigation = true, 
   defaultTab = 'all'
 }: PostListProps) {
-  const [activeTab, setActiveTab] = useState<TabType>(defaultTab);
+
+  const [activeTab, setActiveTab] = useState<TabType | CategoryType>(defaultTab);
   const [posts, setPosts] = useState<PostProps[]>([]);
   const { user } = useContext(AuthContext);
+
+
 
   // firebase 에서 게시글 가져오기
   const getPosts = async () => {
@@ -53,9 +68,16 @@ export default function PostList({
         where("uid", "==", user.uid),
         orderBy("createdAt", "desc")
         );
-    } else {
+    } else if (activeTab === "all"){
       // 모든 게시글 보여주기
       postsQuery = query(postsRef, orderBy("createdAt", "desc"));
+    } else {
+      // 카테고리 글 보여주기
+      postsQuery = query(
+        postsRef, 
+        where("category", "==", activeTab),
+        orderBy("createdAt", "desc")
+      );
     }
 
     const datas = await getDocs(postsQuery);
@@ -65,6 +87,8 @@ export default function PostList({
     })
   }
   
+
+
   // 게시글 삭제하기
   const handleDelete = async (id: string) => {
     const confirm = window.confirm("해당 게시글을 삭제하시겠습니까?");
@@ -95,6 +119,16 @@ export default function PostList({
             onClick={() => setActiveTab("my")}
             className={activeTab === "my" ? "post__navigation--active" : ""}
           >나의 글</div>
+          {CATEGORIES?.map((category) => (
+            <div 
+              key={category}
+              role="presentation"
+              onClick={() => setActiveTab(category)}
+              className={activeTab === category ? "post__navigation--active" : ""}
+            >
+              {category}
+            </div>
+          ))}
         </div>
       )}
       <div className="post__list">
@@ -119,7 +153,7 @@ export default function PostList({
                     onClick={() => handleDelete(post?.id as string)}
                   >삭제</div>
                   <div className='post__edit'>
-                    <Link to={`post/edit/${post?.id}`} >수정</Link>
+                    <Link to={`/posts/edit/${post?.id}`} >수정</Link>
                   </div>
                 </div>
               )}
