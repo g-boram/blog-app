@@ -5,44 +5,13 @@ import { db } from "firebaseApp";
 import AuthContext from "context/AuthContext";
 import { toast } from "react-toastify";
 
-const COMMENTS = [
-  {
-    id: 1,
-    email: "test1@test.com",
-    content: "1 댓글입니다",
-    createdAt: "2024-01-01",
-  },
-  {
-    id: 2,
-    email: "test2@test.com",
-    content: "2 댓글입니다",
-    createdAt: "2024-01-02",
-  },
-  {
-    id: 3,
-    email: "test3@test.com",
-    content: "3 댓글입니다",
-    createdAt: "2024-01-03",
-  },
-  {
-    id: 4,
-    email: "test4@test.com",
-    content: "4 댓글입니다",
-    createdAt: "2024-01-04",
-  },
-  {
-    id: 5,
-    email: "test5@test.com",
-    content: "5 댓글입니다",
-    createdAt: "2024-01-05",
-  },
-]
 
 interface CommentsProps {
   post: PostProps;
+  getPost: (id:string) => Promise<void>;
 }
 
-export default function Comments({ post }: CommentsProps) {
+export default function Comments({ post, getPost }: CommentsProps) {
   const [comment, setComment] = useState("");
   const { user } = useContext(AuthContext);
 
@@ -83,6 +52,7 @@ export default function Comments({ post }: CommentsProps) {
               second: "2-digit",
             }),
           });
+          await getPost(post.id);
         }
       }
       toast.success("댓글을 생성 했습니다.");
@@ -111,8 +81,8 @@ export default function Comments({ post }: CommentsProps) {
         </div>
       </form>
       <div className="comments__list">
-        {COMMENTS?.map((comment) => (
-          <div key={comment.id} className="comment__box">
+        {post?.comments?.map((comment) => (
+          <div key={comment.createdAt} className="comment__box">
             <div className="comment__profile-box">
               <div className="comment__email">{comment?.email}</div>
               <div className="comment__date">{comment?.createdAt}</div>
